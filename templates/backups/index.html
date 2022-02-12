@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Disputing Tickets</title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.2"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </head>
+    
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 class="display-2">Can I get out of this ticket?</h2>
+                <br>
+                <p class="lead">Please enter your information below:</p>
+
+                <form method="post" action="submission">
+                    <label for="fine-amount">Fine Amount:</label>
+                    <input type="text" id="fine-amount" name="fine-amount"><br><br>
+
+                    <label for="violation-code">Violation Code:</label>
+                    <input type="text" id="violation-code" name="violation-code"><br><br>
+
+                    <label for="county" class="input-group-text">County:</label>
+                    <select class="form-select" name="county" method="GET" action="/" id="county">
+                        {%- for c in counties_list -%}
+                            <option value="{{c}}" SELECTED>{{c}}</option>
+                        {%- endfor -%}
+                    </select><br>
+
+                <div class="input-group">
+                    <label for="issuer-squad">Issuer Squad:</label><br>
+                    <input type="text" id="issuer-squad" name="issuer-squad">
+                </div>
+
+                <br>
+                
+                <div class="input-group">
+                    <label for="vehicle-make" class="input-group-text">Vehicle Make:</label>
+                    <select class="form-select" name="vehicle-make" id="vehicle-make">
+                        <option value="acura">Acura</option>
+                        <option value="audi">Audi</option>
+                        <option value="bmw">BMW</option>
+                        <option value="bentl">Bentley</option>
+                        <option value="buick">Buick</option>
+                        <option value="cadil">Cadillac</option>
+                        <option value="chevr">Chevrolet</option>
+                        <option value="chrys">Chrysler</option>
+                        <option value="dodge">Dodge</option>
+                        <option value="ford">Ford</option>
+                        <option value="genesis">Genesis</option>
+                        <option value="honda">Honda</option>
+                        <option value="infin">Infinity</option>
+                        <option value="hyund">Hyundai</option>
+                        <option value="lexus">Lexus</option>
+                        <option value="nissa">Nissan</option>
+                        <option value="saab">Saab</option>
+                        <option value="tesla">Tesla</option>
+                        <option value="toyot">Toyota</option>
+                        <option value="volvo">Volvo</option>
+                    </select>
+                </div>
+
+                <br>
+                
+                    <input type="submit" value="Submit">
+                </form>
+                
+            </div>
+            <div class="col-sm-8">
+                <img src="/static/images/pexels-josh-hild-3573382.jpg" alt="Picture of a Street and Parking Meter" class='img-fluid'>
+
+        </div>
+    <!-- </div>
+
+        <div id="viz"></div>
+        
+        <script>
+            vegaEmbed("#viz", "chart.json");
+        </script> -->
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>My cool plots!</title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.2"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+    </head>
+    
+    <body>
+        <h1>This is a cool plot!</h1>
+        <div id="viz"></div>
+        
+        <script>
+            vegaEmbed("#viz", "chart.json");
+        </script>
+    </body>
+</html>

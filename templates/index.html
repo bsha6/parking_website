@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" class="h-100">
+    <head>
+        
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.2"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <title>Disputing Tickets</title>
+
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+              font-size: 1.125rem;
+              text-anchor: middle;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+            }
+
+            .text-stroke {
+              -webkit-text-stroke: 2px black
+            }
+      
+            @media (min-width: 768px) {
+              .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+              }
+            }
+          </style>
+
+        <!-- Custom styles for this template -->
+        <!-- <link href="/static/styles/cover.css" rel="stylesheet"> -->
+    </head>
+
+    <body class="h-100 text-center text-white bg-dark">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background-image: url('/static/images/dark_parking_lot.jpg')">
+        
+        <header class="mb-auto" style="color:white">
+          <div>
+            <!-- <img  alt='Car being pulled over for speeding ticket.'> -->
+            <h3 class="float-md-start mb-0">Disputing Tickets</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+              <a class="nav-link" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="/how_it_works">How It Works</a>
+              <a class="nav-link" href="/contact">Contact</a>
+            </nav>
+          </div>
+        </header>
+    
+        <main class="px-3 align-text-bottom" style="color:#5198C8;" id="text-stroke">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <h1 class="display-1">Can I Get Out Of This Ticket?</h1>
+            <p class="lead">Using Machine Learning to recommend if you should dispute your ticket.</p>
+            <p class="lead">
+                <a href="#dispute" class="btn btn-lg btn-secondary fw-bold border-white bg-white" style="color:#5198C8;">Try it out</a>
+            </p>
+        </main>
+    
+        <footer class="mt-auto text-white-50">
+        <!-- <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p> -->
+        </footer>
+    </div>
+    
+    <div class="container">
+        <a name='dispute'></a>
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 class="display-2">Can I get out of this ticket?</h2>
+                <br>
+                <p class="lead">Please enter your information below:</p>
+
+                <form method="post" action="submission">
+                    <label for="fine-amount">Fine Amount:</label>
+                    <input type="text" id="fine-amount" name="fine-amount"><br><br>
+
+                    <label for="violation-code">Violation Code:</label>
+                    <input type="text" id="violation-code" name="violation-code"><br><br>
+
+                    <label for="county" class="input-group-text">County:</label>
+                    <select class="form-select" name="county" method="GET" action="/" id="county">
+                        {%- for c in counties_list -%}<option value="{{c}}" SELECTED>{{c}}</option>{%- endfor -%}
+                    </select><br>
+
+                <div class="input-group">
+                    <label for="issuer-squad">Issuer Squad:</label><br>
+                    <input type="text" id="issuer-squad" name="issuer-squad">
+                </div>
+
+                <br>
+                
+                <div class="input-group">
+                    <label for="vehicle-make" class="input-group-text">Vehicle Make:</label>
+                    <select class="form-select" name="vehicle-make" id="vehicle-make">
+                        <option value="acura">Acura</option>
+                        <option value="audi">Audi</option>
+                        <option value="bmw">BMW</option>
+                        <option value="bentl">Bentley</option>
+                        <option value="buick">Buick</option>
+                        <option value="cadil">Cadillac</option>
+                        <option value="chevr">Chevrolet</option>
+                        <option value="chrys">Chrysler</option>
+                        <option value="dodge">Dodge</option>
+                        <option value="ford">Ford</option>
+                        <option value="genesis">Genesis</option>
+                        <option value="honda">Honda</option>
+                        <option value="infin">Infinity</option>
+                        <option value="hyund">Hyundai</option>
+                        <option value="lexus">Lexus</option>
+                        <option value="nissa">Nissan</option>
+                        <option value="saab">Saab</option>
+                        <option value="tesla">Tesla</option>
+                        <option value="toyot">Toyota</option>
+                        <option value="volvo">Volvo</option>
+                    </select>
+                </div>
+
+                <br>
+                
+                    <input type="submit" value="Submit">
+                </form>
+                
+            </div>
+            <div class="col-sm-8">
+                <img src="/static/images/pexels-josh-hild-3573382.jpg" alt="Picture of a Street and Parking Meter" class='img-fluid'>
+
+        </div>
+    <!-- </div>
+
+        <div id="viz"></div>
+        
+        <script>
+            vegaEmbed("#viz", "chart.json");
+        </script> -->
+    </body>
+</html>
