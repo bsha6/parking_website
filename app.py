@@ -82,6 +82,10 @@ def how():
 def contact():
     return render_template('contact.html', current_pg='contact')
 
+@app.route("/next_steps", methods=["GET"])
+def next_steps():
+    return render_template('next_steps.html', current_pg='next_steps')
+
 if __name__ == "__main__":
     app.run(debug=True)
 
