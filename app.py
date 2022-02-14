@@ -12,33 +12,51 @@ import os
 # Why is text on home pg blue?
 
 fp = '/Users/blake/Documents/TDI/parking_violations/Data/'
-log_reg_model = pickle.load(open(fp + 'log_reg_5_feats.pkl', 'rb'))
+# log_reg_model = pickle.load(open(fp + 'log_reg_5_feats.pkl', 'rb'))
+xgb_model = pickle.load(open(fp + '6_feats_xgb_final.pkl', 'rb'))
 pred_key = {0: 'Denied', 1.0: 'Reduced', 2.0: 'Granted'}
+
+# print(xgb_model.get_feature_names_out)
 
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
-def ticket_info():
-    counties_list = ['NY', 'K', 'Q', 'BX', 'BK', 'MN', 'QN', 'R', 'ST', 'None']
-    return render_template('index.html', counties_list=counties_list, current_pg='home')
+def ticket_fields():
+    license_types_list = ['999','OMT', 'OMS', 'VAS', 'LMB', 'AYG', 'LMA',
+       'TRC', 'ITP', 'OMR', 'MED', 'CMB', 'SOS', 'IRP', 'APP', 'NYC',
+       'ORG', 'SPO', 'PSD', 'LMC', 'SRN', 'TRL', 'DLR', 'MCL', 'TOW',
+       'SCL', 'AMB', 'RGL', 'TRA', 'ORC', 'PHS', 'CHC', 'NLM', 'HIS',
+       'SPC', 'STA', 'OML', 'BOB', 'AGR', 'MCD', 'SNO', 'RGC', 'BOT',
+       'SEM', 'NYS', 'JCL', 'USC', 'GSM', 'ATV', 'NYA', 'LTR', 'HAM',
+       'STG', 'CSP', 'AGC', 'HOU',  'ORM', 'MOT', 'COM', 'SRF', 'PAS']
+    vehicle_body_types_list = ['TR', 'P/SH', 'TT', 'OM', 'W/DR', 'SUV', 'TWOD', 'AMBU', '5D', 'CMIX', '00', 'LIM', 'O', 'MTR', 'LTRL', 'YY', 'CH', 'H/WH', 'SEMI', 'TRC', '4W', 
+                              'TRAV', '2S', 'TR/E', '4H', 'CV', 'WG', 'TRAI', 'MC', 'BOAT', 'TOW', 'TANK', 'T/CR', 'TRK', 'LL', 'VN', 'MCC', 'ST', 'MOPD', 'MOBL', 'MP', 'PV', 
+                              'TK', 'CP', 'HB', 'WAGO', 'STAK', 'CG', 'BUS', 'DUMP', 'SWT', 'TAXI', 'TR/C', 'FLAT', 'CONV', 'TRLR', 'UTIL', '2DSD', 'MCY', 'SEDN', 'TRAC', 'REFG', 
+                              'PICK', 'DELV', '4DSD', 'SUBN', 'VAN']
+    return render_template('index.html', license_types_list=license_types_list, vehicle_body_types_list=vehicle_body_types_list, current_pg='home')
 
 @app.route("/submission", methods=["POST"])
 def submit():
-    fine = float(request.form["fine-amount"])
+    fine = request.form["fine-amount"]
+    license_type = request.form["license_type"]
+    vehicle_body_type = request.form["vehicle_body_type"]
+    vehicle_color = request.form["vehicle-color"]
+    vehicle_make = request.form["vehicle-make"].upper()
     viol_code = request.form["violation-code"]
-    county = request.form["county"]
-    issuer_squad = request.form["issuer-squad"]
-    vehicle = request.form["vehicle-make"].upper()
+
+    if len(fine) >= 1:
+        fine = float(fine)
 
     # Convert to df (use dict?)
-    submitted_dict = {'violation_code': viol_code, 'county': county, 
-                      'issuer_squad': issuer_squad, 'vehicle_make': vehicle, 
-                      'fine_amount': fine}
+    submitted_dict = {'fine_amount': fine, 'license_type': license_type, 'vehicle_body_type_cleaned': vehicle_body_type,
+                      'vehicle_color_cleaned': vehicle_color, 'vehicle_make': vehicle_make, 'violation_code': viol_code}
+                      
     df_submitted = pd.DataFrame(submitted_dict, index=[0])
 
     # Calculate probabilities
-    pred = log_reg_model.predict(df_submitted)
-    pred_prob = log_reg_model.predict_proba(df_submitted)[0]
+    pred = xgb_model.predict(df_submitted)
+    pred_prob = xgb_model.predict_proba(df_submitted)[0]
+
     denied_pred_prob = pred_prob[0]
     granted_reduced_pred_prob = pred_prob[1] + pred_prob[2]
     diff_pred_prob = abs(denied_pred_prob - granted_reduced_pred_prob)
@@ -54,8 +72,6 @@ def submit():
         confidence_level = "low"
 
     pred_txt = pred_key[pred[0]]
-    output = f"Fine: {fine}, Violation Code: {viol_code}, County: {county}, \
-    #     Issuer Squad: {issuer_squad}, Vehicle: {vehicle}, Prediction: {pred_txt}"
 
     # if pred_txt == 'Granted' or pred_txt == 'Reduced':
     #     granted_output = f"You should dispute! Our model predicts a {confidence_level} chance of your appeal being granted or fine amount being reduced. {pred_prob}"

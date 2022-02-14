@@ -77,51 +77,18 @@
                     <label for="fine-amount">Fine Amount:</label>
                     <input type="text" id="fine-amount" name="fine-amount"><br><br>
 
-                    <label for="license_type" class="input-group-text">
-                        <a href="https://dmv.ny.gov/registration/registration-class-codes" target="_blank" rel="noopener noreferrer">License Type</a>:
-                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true"
-                        title="PAS for most standard issue plate. SRF for personalized plates. Click the link for more details.">
-                            ?
-                        </button>
-                    </label>
-                    <select class="form-select" name="license_type" method="GET" action="/" id="license_type">
-                        {%- for li in license_types_list -%}
-                            <option value="{{li}}" SELECTED>{{li}}</option>
-                        {%- endfor -%}
+                    <label for="violation-code">Violation Code:</label>
+                    <input type="text" id="violation-code" name="violation-code"><br><br>
+
+                    <label for="county" class="input-group-text">County:</label>
+                    <select class="form-select" name="county" method="GET" action="/" id="county">
+                        {%- for c in counties_list -%}<option value="{{c}}" SELECTED>{{c}}</option>{%- endfor -%}
                     </select><br>
 
-                    <label for="vehicle_body_type" class="input-group-text">
-                        <a href="https://data.ny.gov/api/assets/83055271-29A6-4ED4-9374-E159F30DB5AE" target="_blank" rel="noopener noreferrer">Vehicle Body Style</a>:
-                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true"
-                        title="SUBN for Suburban and 4DSD for four-door sedan. Click the link for more details.">
-                            ?
-                        </button>
-                    </label>
-                    <select class="form-select" name="vehicle_body_type" method="GET" action="/" id="vehicle_body_type">
-                        {%- for vbt in vehicle_body_types_list -%}
-                            <option value="{{vbt}}" SELECTED>{{vbt}}</option>
-                        {%- endfor -%}
-                    </select><br>
-
-
-                    <div class="input-group">
-                        <label for="vehicle-color" class="input-group-text">Vehicle Color:</label>
-                        <select class="form-select" name="vehicle-color" id="vehicle-color">
-                            <option value="WH">White</option>
-                            <option value="GY">Gray</option>
-                            <option value="BK">Black</option>
-                            <option value="BR">Brown</option>
-                            <option value="BL">Blue</option>
-                            <option value="RD">Red</option>
-                            <option value="YW">Yellow</option>
-                            <option value="GL">Gold</option>
-                            <option value="MR">Maroon</option>
-                            <option value="OR">Orange</option>
-                            <option value="PK">Pink</option>
-                            <option value="PR">Purple</option>
-                            <option value="TN">Tan</option>
-                        </select>
-                    </div>
+                <div class="input-group">
+                    <label for="issuer-squad">Issuer Squad:</label><br>
+                    <input type="text" id="issuer-squad" name="issuer-squad">
+                </div>
 
                 <br>
                 
@@ -138,47 +105,22 @@
                         <option value="chrys">Chrysler</option>
                         <option value="dodge">Dodge</option>
                         <option value="ford">Ford</option>
-                        <option value="FRUEH">Fruehauf</option>
                         <option value="genesis">Genesis</option>
-                        <option value="GMC">GMC</option>
                         <option value="honda">Honda</option>
-                        <option value="hyund">Hyundai</option>
                         <option value="infin">Infinity</option>
-                        <option value="ISUZU">Isuzu</option>
-                        <option value="JEEP">Jeep</option>
-                        <option value="KIA">KIA</option>
+                        <option value="hyund">Hyundai</option>
                         <option value="lexus">Lexus</option>
-                        <option value="LINCO">Lincoln</option>
-                        <option value="MAZDA">Mazda</option>
-                        <option value="ME/BE">Mercedes</option>
-                        <option value="MINI">MINI</option>
-                        <option value="MITSU">Mitsubishi</option>
                         <option value="nissa">Nissan</option>
-                        <option value="PORSC">Porsche</option>Porsche
                         <option value="saab">Saab</option>
-                        <option value="SUBAR">Subaru</option>
                         <option value="tesla">Tesla</option>
                         <option value="toyot">Toyota</option>
-                        <option value="VOLKS">Volkswagen</option>
                         <option value="volvo">Volvo</option>
-                        <option value="WORKH">Workhorse</option>
                     </select>
                 </div>
 
                 <br>
-
-                <label for="violation-code" class="input-group-text">
-                    <a href="https://www1.nyc.gov/site/finance/vehicles/services-violation-codes.page" target="_blank" rel="noopener noreferrer">Violation Code</a>:
-                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true"
-                    title="Click the link for more details.">
-                        ?
-                    </button>
-                </label>
-                <input type="text" id="violation-code" name="violation-code"><br><br>
-
-                <br>
                 
-                <input type="submit" value="Submit">
+                    <input type="submit" value="Submit">
                 </form>
                 
             </div>
