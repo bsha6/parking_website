@@ -10,6 +10,8 @@ import os
 dir = os.path.dirname(__file__)
 fp = os.path.join(dir, 'model/')
 
+print(os.environ['VIRTUAL_ENV'])
+
 # log_reg_model = pickle.load(open(fp + 'log_reg_5_feats.pkl', 'rb'))
 xgb_model = pickle.load(open(fp + '6_feats_xgb_final.pkl', 'rb'))
 pred_key = {0: 'Denied', 1.0: 'Reduced', 2.0: 'Granted'}
