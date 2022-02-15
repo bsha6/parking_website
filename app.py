@@ -4,14 +4,12 @@ import pandas as pd
 import pickle
 import os
 
-# bootstrap, jinja 2 template
-# clean up vehicle make feature
-# improve model (ensemble)
+# blue text on home page from css class
 
-# how to get each page highlighted... modify class tag in base?
-# Why is text on home pg blue?
+# fp = '/Users/blake/Documents/TDI/parking_violations/Data/'
+dir = os.path.dirname(__file__)
+fp = os.path.join(dir, 'model/')
 
-fp = '/Users/blake/Documents/TDI/parking_violations/Data/'
 # log_reg_model = pickle.load(open(fp + 'log_reg_5_feats.pkl', 'rb'))
 xgb_model = pickle.load(open(fp + '6_feats_xgb_final.pkl', 'rb'))
 pred_key = {0: 'Denied', 1.0: 'Reduced', 2.0: 'Granted'}
