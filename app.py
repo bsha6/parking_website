@@ -103,6 +103,6 @@ def next_steps():
     return render_template('next_steps.html', current_pg='next_steps')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
 
 # divs that are each labelled as row/col
