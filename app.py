@@ -46,6 +46,8 @@ def submit():
 
     if len(fine) >= 1:
         fine = float(fine)
+    else:
+        fine = 115.0
 
     # Convert to df (use dict?)
     submitted_dict = {'fine_amount': fine, 'license_type': license_type, 'vehicle_body_type_cleaned': vehicle_body_type,
