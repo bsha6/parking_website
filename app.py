@@ -4,8 +4,6 @@ import pandas as pd
 import pickle
 import os
 
-# blue text on home page from css class
-
 # fp = '/Users/blake/Documents/TDI/parking_violations/Data/'
 dir = os.path.dirname(__file__)
 fp = os.path.join(dir, 'model/')
@@ -56,7 +54,7 @@ def submit():
     else:
         fine = 115.0
 
-    # Convert to df (use dict?)
+    # Convert submitted responses to df
     submitted_dict = {'fine_amount': fine, 'license_type': license_type, 'vehicle_body_type_cleaned': vehicle_body_type,
                       'vehicle_color_cleaned': vehicle_color, 'vehicle_make': vehicle_make, 'violation_code': viol_code}
                       
@@ -82,15 +80,6 @@ def submit():
 
     pred_txt = pred_key[pred[0]]
 
-    # if pred_txt == 'Granted' or pred_txt == 'Reduced':
-    #     granted_output = f"You should dispute! Our model predicts a {confidence_level} chance of your appeal being granted or fine amount being reduced. {pred_prob}"
-    #     return granted_output
-    # # elif pred_txt == 'Reduced':
-    # #     return output
-    # elif pred_txt == 'Denied':
-    #     denied_output = f"Unfortunately, it's unlikely your dispute will be successful. Our model gives it a {confidence_level} chance of being denied. {pred_prob}"
-    #     return denied_output
-
     # Format probabilities for website
     denied_prob_output = "{0:.1f}%".format(denied_pred_prob*100)
     reduced_prob_output = "{0:.1f}%".format(pred_prob[1]*100)
@@ -113,5 +102,3 @@ def next_steps():
 
 if __name__ == "__main__":
     app.run()
-
-# divs that are each labelled as row/col
