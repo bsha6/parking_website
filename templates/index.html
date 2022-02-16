@@ -86,9 +86,9 @@
                     </label>
                     <select class="form-select" name="license_type" method="GET" action="/" id="license_type">
                         {%- for li in license_types_list -%}
-                            <option value="{{li}}" SELECTED>{{li}}</option>
+                            <option value="{{li}}" {% if li=="PAS" %} SELECTED {% endif %}>{{li}}</option>
                         {%- endfor -%}
-                    </select><br>
+                    <!-- </select><br>
 
                     <label for="vehicle_body_type" class="input-group-text">
                         <a href="https://data.ny.gov/api/assets/83055271-29A6-4ED4-9374-E159F30DB5AE" target="_blank" rel="noopener noreferrer">Vehicle Body Style</a>:
@@ -101,7 +101,22 @@
                         {%- for vbt in vehicle_body_types_list -%}
                             <option value="{{vbt}}" SELECTED>{{vbt}}</option>
                         {%- endfor -%}
-                    </select><br>
+                    </select><br> -->
+
+                </select><br>
+
+                <label for="vehicle_body_type" class="input-group-text">
+                    <a href="https://data.ny.gov/api/assets/83055271-29A6-4ED4-9374-E159F30DB5AE" target="_blank" rel="noopener noreferrer">Vehicle Body Style</a>:
+                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true"
+                    title="Click the link for more details.">
+                        ?
+                    </button>
+                </label>
+                <select class="form-select" name="vehicle_body_type" method="GET" action="/" id="vehicle_body_type">
+                    {%- for code, description in vbt_dict.items() -%}
+                        <option value="{{code}}" {% if code=="4DSD" %} SELECTED {% endif %}>{{description}}</option>
+                    {%- endfor -%}
+                </select><br>
 
 
                     <div class="input-group">
@@ -154,7 +169,7 @@
                         <option value="MINI">MINI</option>
                         <option value="MITSU">Mitsubishi</option>
                         <option value="nissa">Nissan</option>
-                        <option value="PORSC">Porsche</option>Porsche
+                        <option value="PORSC">Porsche</option>
                         <option value="saab">Saab</option>
                         <option value="SUBAR">Subaru</option>
                         <option value="tesla">Tesla</option>

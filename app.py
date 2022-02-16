@@ -20,18 +20,27 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def ticket_fields():
-    license_types_list = ['999','OMT', 'OMS', 'VAS', 'LMB', 'AYG', 'LMA',
+    license_types_list = sorted(['999','OMT', 'OMS', 'VAS', 'LMB', 'AYG', 'LMA',
        'TRC', 'ITP', 'OMR', 'MED', 'CMB', 'SOS', 'IRP', 'APP', 'NYC',
        'ORG', 'SPO', 'PSD', 'LMC', 'SRN', 'TRL', 'DLR', 'MCL', 'TOW',
        'SCL', 'AMB', 'RGL', 'TRA', 'ORC', 'PHS', 'CHC', 'NLM', 'HIS',
        'SPC', 'STA', 'OML', 'BOB', 'AGR', 'MCD', 'SNO', 'RGC', 'BOT',
        'SEM', 'NYS', 'JCL', 'USC', 'GSM', 'ATV', 'NYA', 'LTR', 'HAM',
-       'STG', 'CSP', 'AGC', 'HOU',  'ORM', 'MOT', 'COM', 'SRF', 'PAS']
-    vehicle_body_types_list = ['TR', 'P/SH', 'TT', 'OM', 'W/DR', 'SUV', 'TWOD', 'AMBU', '5D', 'CMIX', '00', 'LIM', 'O', 'MTR', 'LTRL', 'YY', 'CH', 'H/WH', 'SEMI', 'TRC', '4W', 
-                              'TRAV', '2S', 'TR/E', '4H', 'CV', 'WG', 'TRAI', 'MC', 'BOAT', 'TOW', 'TANK', 'T/CR', 'TRK', 'LL', 'VN', 'MCC', 'ST', 'MOPD', 'MOBL', 'MP', 'PV', 
-                              'TK', 'CP', 'HB', 'WAGO', 'STAK', 'CG', 'BUS', 'DUMP', 'SWT', 'TAXI', 'TR/C', 'FLAT', 'CONV', 'TRLR', 'UTIL', '2DSD', 'MCY', 'SEDN', 'TRAC', 'REFG', 
-                              'PICK', 'DELV', '4DSD', 'SUBN', 'VAN']
-    return render_template('index.html', license_types_list=license_types_list, vehicle_body_types_list=vehicle_body_types_list, current_pg='home')
+       'STG', 'CSP', 'AGC', 'HOU',  'ORM', 'MOT', 'COM', 'SRF', 'PAS'])
+    # vehicle_body_types_list = sorted(['TR', 'P/SH', 'TT', 'OM', 'W/DR', 'SUV', 'TWOD', 'AMBU', '5D', 'CMIX', '00', 'LIM', 'O', 'MTR', 'LTRL', 'YY', 'CH', 'H/WH', 'SEMI', 'TRC', '4W', 
+    #                           'TRAV', '2S', 'TR/E', '4H', 'CV', 'WG', 'TRAI', 'MC', 'BOAT', 'TOW', 'TANK', 'T/CR', 'TRK', 'LL', 'VN', 'MCC', 'ST', 'MOPD', 'MOBL', 'MP', 'PV', 
+    #                           'TK', 'CP', 'HB', 'WAGO', 'STAK', 'CG', 'BUS', 'DUMP', 'SWT', 'TAXI', 'TR/C', 'FLAT', 'CONV', 'TRLR', 'UTIL', '2DSD', 'MCY', 'SEDN', 'TRAC', 'REFG', 
+    #                           'PICK', 'DELV', '4DSD', 'SUBN', 'VAN'])
+    vbt_dict = {'2DSD': 'TWO-DOOR SEDAN', '4DSD': 'FOUR-DOOR SEDAN', 'AMBU': 'AMBULANCE', 'ATV': 'ALL TERRAIN VEHICLE', 'BOAT': 'BOAT', 'BUS': 'BUS(OMNIBUS)', 'CMIX': 'CEMENT MIXER', 
+                'CONV': 'CONVERTIBLE', 'CUST': 'CUSTOM', 'DCOM': 'DISABLED COMMERICAL', 'DELV': 'DELIVERY TRUCK', 'DUMP': 'DUMP TRUCK', 'EMVR': 'EARTH MOVER', 'FIRE': 'FIRE TRUCK', 
+                'FLAT': 'FLAT BED TRUCK', 'FPM': 'FEED PROCESSING MACHINE', 'H/IN': 'HEARSE-INVALID', 'H/TR': 'HOUSE TRAILER', 'H/WH': 'HOUSE ON WHEELS', 'HRSE': 'HEARSE(AMBULANCE)',
+                'LIM': 'LIMOUSINE(OMNIBUS)', 'LOCO': 'LOCOMOTIVE', 'LSV': 'LOW SPEED VEHICLE', 'LSVT': 'LOW SPEED VEHICLE - TRUCK', 'LTRL': 'LIGHT TRAILER', 'MCC': 'MOBILE CAR CRUSHER', 
+                'MCY': 'MOTORCYCLE', 'MFH': 'MANUFACTURED HOME', 'MOBL': 'SNOWMOBILE', 'MOPD': 'MOPED', 'N/A': 'NOT APPLICABLE', 'P/SH': 'POWER SHOVEL', 'PICK': 'PICK-UP TRUCK', 
+                'POLE': 'POLE TRAILER', 'R/RD': 'ROAD ROLLER', 'RBM': 'ROAD BUILDING MACHINE', 'RD/S': 'ROAD SWEEPER', 'REFG': 'REFRIGERATOR TRAILER', 'RPLC': 'REPLICA',
+                'S/SP': 'SAND OR AGRICULTRAL SPREADER/SPRAYER', 'SEDN': 'SEDAN', 'SEMI': 'SEMI-TRAILER', 'SN/P': 'SNOW PLOW', 'SNOW': 'SNOWMOBILE', 'STAK': 'STAKE TRUCK', 'SUBN': 'SUBURBAN', 
+                'SWT': 'TRUCK W/SMALL WHEELS', 'T/CR': 'TRACTOR CRANE', 'TANK': 'TANK TRUCK', 'TAXI': 'TAXI', 'TOW': 'TOW TRUCK', 'TR/C': 'TRUCK CRANE', 'TR/E': 'TRACTION ENGINE', 
+                'TRAC': 'TRACTOR', 'TRAV': 'SNOW TRAVELER', 'TRLR': 'TRAILER', 'UTIL': 'UTILITY', 'VAN': 'VAN', 'W/DR': 'WELL DRILLER', 'W/SR': 'WELL SERVICING RIG'}
+    return render_template('index.html', license_types_list=license_types_list, vbt_dict=vbt_dict, current_pg='home')
 
 @app.route("/submission", methods=["POST"])
 def submit():
