@@ -29,36 +29,36 @@ def test_next_steps(client):
     assert response.status_code == 200
 
 # TODO: add test for model recommended dispute
-# def test_submission(client):
-#     # Define input data for the test
-#     input_data = {
-#         "fine-amount": 65,
-#         "license_type": "COM",
-#         "vehicle_body_type": "4DSD",
-#         "vehicle-color": "WHITE",
-#         "vehicle-make": "DODGE",
-#         "violation_code": 23,
-#     }
+def test_submission(client):
+    # Define input data for the test
+    input_data = {
+        "fine-amount": 65,
+        "license_type": "COM",
+        "vehicle_body_type": "4DSD",
+        "vehicle-color": "WHITE",
+        "vehicle-make": "DODGE",
+        "violation_code": 23,
+    }
 
-#     # Expected phrases in the output
-#     expected_phrases = [
-#         "You should dispute!",
-#         "Specifically, the model predicts a 75.4% chance of your appeal being granted",
-#         "15.9% chance of your fine being reduced",
-#         "8.6% chance of your appeal being denied"
-#     ]
+    # Expected phrases in the output
+    expected_phrases = [
+        "You should dispute!",
+        "Specifically, the model predicts a 75.4% chance of your appeal being granted",
+        "15.9% chance of your fine being reduced",
+        "8.6% chance of your appeal being denied"
+    ]
 
-#     # Make a POST request to the /submission endpoint
-#     response = client.post("/submission", json=input_data)
-#     print(response.data.decode('utf-8'))
+    # Make a POST request to the /submission endpoint
+    response = client.post("/submission", data=input_data, content_type="application/x-www-form-urlencoded")
+    print(response.data.decode('utf-8'))
 
-#     # Assertions
-#     # assert response.status_code == 200  # Ensure the request was successful
-#     response_data = response.data.decode('utf-8')  # Decode response data for assertions
-#     print(response_data)
+    # Assertions
+    # assert response.status_code == 200  # Ensure the request was successful
+    response_data = response.data.decode('utf-8')  # Decode response data for assertions
+    print(response_data)
 
-#     # Check that each expected phrase is in the response
-#     for phrase in expected_phrases:
-#         assert phrase in response_data
+    # Check that each expected phrase is in the response
+    for phrase in expected_phrases:
+        assert phrase in response_data
 
 # TODO: add test for model recommended not to dispute
