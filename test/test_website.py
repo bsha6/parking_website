@@ -27,3 +27,6 @@ def test_contact_page(client):
 def test_next_steps(client):
     response = client.get("/next_steps")
     assert response.status_code == 200
+
+# TODO: add test for model recommended dispute
+# TODO: add test for model recommended not to dispute
